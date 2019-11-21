@@ -7,23 +7,9 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
+    <context:component-scan base-package="com.gorbunovey.logisticapp"/>
+
     <context:property-placeholder location="classpath:musicPlayer.properties"/>
 
-    <bean id="musicClassicalBean" class="com.gorbunovey.logisticapp.ClassicalMusic"/>
-    <bean id="musicRockBean" class="com.gorbunovey.logisticapp.RockMusic"/>
-    <bean id="musicRapBean" class="com.gorbunovey.logisticapp.RapMusic"/>
-
-    <bean id="musicPlayer"
-    class="com.gorbunovey.logisticapp.MusicPlayer">
-        <property name="musicList">
-        <list>
-            <ref bean="musicClassicalBean"/>
-            <ref bean="musicRockBean"/>
-            <ref bean="musicRapBean"/>
-        </list>
-        </property>
-        <property name="name" value="${musicPlayer.name}"/>
-        <property name="volume" value="${musicPlayer.volume}"/>
-    </bean>
 
 </beans>
