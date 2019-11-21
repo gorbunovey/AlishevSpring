@@ -1,16 +1,16 @@
 package com.gorbunovey.logisticapp;
 
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class TestSpring {
     public static void main(String[] args) {
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
-                "applicationContext.xml"
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(
+                SpringConfig.class
         );
         MusicPlayer musicPlayer = context.getBean("musicPlayer", MusicPlayer.class);
-        musicPlayer.playMusic(MusicPlayer.MusicType.CLASSICAL);
-        musicPlayer.playMusic(MusicPlayer.MusicType.ROCK);
-        musicPlayer.playMusic(MusicPlayer.MusicType.RAP);
+        System.out.println("Player name: " + musicPlayer.getName());
+        System.out.println("Player volume: " + musicPlayer.getVolume());
+        musicPlayer.playMusic();
         context.close();
     }
 }

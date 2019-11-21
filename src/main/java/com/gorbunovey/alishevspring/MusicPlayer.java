@@ -1,26 +1,27 @@
 package com.gorbunovey.logisticapp;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Value;
+
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
+
 public class MusicPlayer {
-    public enum MusicType {CLASSICAL, ROCK, RAP}
-    @Autowired
-    @Qualifier("classicalMusic")
-    private Music musicClassical;
-    @Autowired
-    @Qualifier("rockMusic")
-    private Music musicRock;
-    @Autowired
-    @Qualifier("rapMusic")
-    private Music musicRap;
-    private String name = "";
-    private int volume = 100;
+
+    private List<Music> playlist;
+
+    @Value("${musicPlayer.name}")
+    private String name;
+    @Value("${musicPlayer.volume}")
+    private int volume;
+
+    public MusicPlayer(List<Music> playlist) {
+        this.playlist = playlist;
+    }
+    public MusicPlayer() {
+        this.playlist = new ArrayList<Music>();
+    }
 
     public String getName() {
         return name;
@@ -38,18 +39,14 @@ public class MusicPlayer {
         this.volume = volume;
     }
 
-    public void playMusic(MusicType type){
+    public void playMusic(){
+        if(playlist == null || playlist.isEmpty()) {
+            System.out.println("playlist is empty");
+            return;
+        }
         System.out.println("Playing: ");
-        switch (type) {
-            case CLASSICAL:
-                System.out.println(this.musicClassical.getSong());
-                break;
-            case ROCK:
-                System.out.println(this.musicRock.getSong());
-                break;
-            case RAP:
-                System.out.println(this.musicRap.getSong());
-                break;
+        for (Music song: playlist) {
+            System.out.println(song.getSong());
         }
     }
 }
